@@ -2578,7 +2578,9 @@ namespace WpfApp1
                         ? "_resukisu_lkm_patched"
                         : string.Equals(patchScheme, "SukiSU LKM", StringComparison.OrdinalIgnoreCase)
                             ? "_sukisu_lkm_patched"
-                            : "_kernelsu_lkm_patched";
+                            : string.Equals(patchScheme, "ShizuSU LKM", StringComparison.OrdinalIgnoreCase)
+                                ? "_shizusu_lkm_patched"
+                                : "_kernelsu_lkm_patched";
                 string outputPath = IOPath.Combine(
                     desktopPath,
                     IOPath.GetFileNameWithoutExtension(bootPath) + suffix + IOPath.GetExtension(bootPath));

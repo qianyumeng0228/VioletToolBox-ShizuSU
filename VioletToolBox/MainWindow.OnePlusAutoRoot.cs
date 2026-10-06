@@ -18,6 +18,7 @@ namespace WpfApp1
         private const string KernelSuManagerDownloadUrl = "https://violettool.top/autoroot/KernelSU_v3.3.0.apk";
         private const string SukiSuManagerDownloadUrl = "https://violettool.top/autoroot/SukiSU_v4.2.0.apk";
         private const string ReSukiSuManagerDownloadUrl = "https://violettool.top/autoroot/ReSukiSU.apk";
+        private const string ShizuSuManagerDownloadUrl = "https://github.com/qianyumeng0228/ShizuSU/releases/download/v1.0.6/ShizuSU_v1.0.6-release.apk";
         private const string APatchManagerDownloadUrl = "https://violettool.top/autoroot/APatch.apk";
         private const string FolkPatchManagerDownloadUrl = "https://violettool.top/autoroot/FolkPatch.apk";
         private const string LegacyAutorootTrafficUsageFile = @"C:\Used.txt";
@@ -731,6 +732,7 @@ namespace WpfApp1
             if (KernelSuLkmPatchRadioButton != null) KernelSuLkmPatchRadioButton.IsEnabled = enabled;
             if (SukiSuLkmPatchRadioButton != null) SukiSuLkmPatchRadioButton.IsEnabled = enabled;
             if (ReSukiSuLkmPatchRadioButton != null) ReSukiSuLkmPatchRadioButton.IsEnabled = enabled;
+            if (ShizuSuLkmPatchRadioButton != null) ShizuSuLkmPatchRadioButton.IsEnabled = enabled;
             if (APatchPatchRadioButton != null) APatchPatchRadioButton.IsEnabled = enabled;
             if (FolkPatchPatchRadioButton != null) FolkPatchPatchRadioButton.IsEnabled = enabled;
         }
@@ -1203,6 +1205,7 @@ namespace WpfApp1
             if (KernelSuLkmPatchRadioButton?.IsChecked == true) return "KernelSU LKM";
             if (SukiSuLkmPatchRadioButton?.IsChecked == true) return "SukiSU LKM";
             if (ReSukiSuLkmPatchRadioButton?.IsChecked == true) return "ReSukiSU LKM";
+            if (ShizuSuLkmPatchRadioButton?.IsChecked == true) return "ShizuSU LKM";
             return "Alpha";
         }
 
@@ -1216,7 +1219,8 @@ namespace WpfApp1
         {
             return string.Equals(patchScheme, "KernelSU LKM", StringComparison.OrdinalIgnoreCase) ||
                    string.Equals(patchScheme, "SukiSU LKM", StringComparison.OrdinalIgnoreCase) ||
-                   string.Equals(patchScheme, "ReSukiSU LKM", StringComparison.OrdinalIgnoreCase);
+                   string.Equals(patchScheme, "ReSukiSU LKM", StringComparison.OrdinalIgnoreCase) ||
+                   string.Equals(patchScheme, "ShizuSU LKM", StringComparison.OrdinalIgnoreCase);
         }
 
         private static void EnsureKernelPatchBootImage(string sourceImage, string patchScheme)
@@ -1319,6 +1323,13 @@ namespace WpfApp1
                     "ReSukiSU Manager 4.1.0 (35045)",
                     "ReSukiSU.apk",
                     ReSukiSuManagerDownloadUrl);
+            }
+            if (string.Equals(patchScheme, "ShizuSU LKM", StringComparison.OrdinalIgnoreCase))
+            {
+                return new AutoRootManagerInfo(
+                    "ShizuSU Manager 1.0.6",
+                    "ShizuSU_v1.0.6-release.apk",
+                    ShizuSuManagerDownloadUrl);
             }
             if (string.Equals(patchScheme, "APatch", StringComparison.OrdinalIgnoreCase))
             {
@@ -1515,11 +1526,19 @@ namespace WpfApp1
 
             string lkmRoot = ResolveLkmPatchRoot();
             string ksudPath = Path.Combine(lkmRoot, "ksud.exe");
+            // ShizuSU 优先使用其专用 ksud（若随包发布），否则回退共享 ksud
+            if (string.Equals(patchScheme, "ShizuSU LKM", StringComparison.OrdinalIgnoreCase))
+            {
+                string dedicatedKsud = Path.Combine(lkmRoot, "ShizuSU", "ksud.exe");
+                if (File.Exists(dedicatedKsud)) ksudPath = dedicatedKsud;
+            }
             string moduleFolder = string.Equals(patchScheme, "ReSukiSU LKM", StringComparison.OrdinalIgnoreCase)
                 ? "ReSukiSU"
                 : string.Equals(patchScheme, "SukiSU LKM", StringComparison.OrdinalIgnoreCase)
                     ? "SukiSU_Ultra"
-                    : "KernelSU";
+                    : string.Equals(patchScheme, "ShizuSU LKM", StringComparison.OrdinalIgnoreCase)
+                        ? "ShizuSU"
+                        : "KernelSU";
             string modulePath = Path.Combine(lkmRoot, moduleFolder, kmi + "_kernelsu.ko");
             if (!File.Exists(ksudPath))
             {

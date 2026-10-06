@@ -1467,7 +1467,8 @@
                                                                          Content="ReSukiSU"
                                                                          FontSize="13"
                                                                          Cursor="Hand"
-                                                                         Checked="PatchScheme_Checked"/>
+                                                                         Checked="PatchScheme_Checked"
+                                                                         Margin="0,0,14,0"/>
                                                             </StackPanel>
                                                             <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
                                                                 <RadioButton x:Name="APatchPatchRadioButton"
@@ -1482,7 +1483,14 @@
                                                                          Content="FolkPatch"
                                                                          FontSize="13"
                                                                          Cursor="Hand"
-                                                                         Checked="PatchScheme_Checked" Width="88"/>
+                                                                         Checked="PatchScheme_Checked"
+                                                                         Margin="0,0,14,0" Width="88"/>
+                                                                <RadioButton x:Name="ShizuSuLkmPatchRadioButton"
+                                                                         GroupName="OfflinePatchScheme"
+                                                                         Content="ShizuSU"
+                                                                         FontSize="13"
+                                                                         Cursor="Hand"
+                                                                         Checked="PatchScheme_Checked"/>
                                                             </StackPanel>
                                                         </StackPanel>
                                                     </Grid>
@@ -4430,7 +4438,7 @@
                             <TextBlock Margin="17,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="97" FontFamily="Microsoft YaHei UI" FontSize="12" FontWeight="SemiBold" Foreground="#FF334155"><Run Text="隐藏方案"/><Run Language="zh-cn" Text="："/></TextBlock>
                             <CheckBox x:Name="MagiskAlpha28104CheckBox" Content="Magisk Alpha方案  支持版本：28101~28104" HorizontalAlignment="Left" Margin="76,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.304,0.51" Width="334" Style="{StaticResource HiddenEnvironmentSchemeCheckBoxStyle}" Checked="HiddenRootScheme_Checked"/>
                             <CheckBox x:Name="MagiskAlpha29000CheckBox" Content="Magisk Alpha方案  支持版本：29000~最新" HorizontalAlignment="Left" Margin="76,83,0,0" VerticalAlignment="Top" Width="327" Style="{StaticResource HiddenEnvironmentSchemeCheckBoxStyle}" Checked="HiddenRootScheme_Checked"/>
-                            <CheckBox x:Name="SUkiSULKMCheckBox" Content="SUkiSU LKM方案  支持版本：≥4.0 （KernelSU适用≥3.0）" HorizontalAlignment="Left" Margin="76,112,0,0" VerticalAlignment="Top" Width="398" Style="{StaticResource HiddenEnvironmentSchemeCheckBoxStyle}" Checked="HiddenRootScheme_Checked"/>
+                            <CheckBox x:Name="SUkiSULKMCheckBox" Content="SUkiSU/ShizuSU LKM方案  支持版本：≥4.0 （KernelSU适用≥3.0）" HorizontalAlignment="Left" Margin="76,112,0,0" VerticalAlignment="Top" Width="420" Style="{StaticResource HiddenEnvironmentSchemeCheckBoxStyle}" Checked="HiddenRootScheme_Checked"/>
                             <CheckBox x:Name="SUkiSUGKICheckBox" Content="SUkiSU GKI/Built-in方案  支持版本：≥3.18" HorizontalAlignment="Left" Margin="76,138,0,0" VerticalAlignment="Top" Width="362" Style="{StaticResource HiddenEnvironmentSchemeCheckBoxStyle}" Checked="HiddenRootScheme_Checked"/>
                             <Button x:Name="StartHiddenRootButton" HorizontalAlignment="Left" Margin="15,166,0,0" VerticalAlignment="Top" Width="154" Click="StartHiddenRootButton_Click" Style="{StaticResource FastbootPrimaryButtonStyle}" Background="#FFB876DD" BorderBrush="#FFB876DD">
                                 <Button.Content>
